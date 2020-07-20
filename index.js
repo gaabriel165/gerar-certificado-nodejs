@@ -17,8 +17,6 @@ const puppeteer = require('puppeteer');
 const { abort } = require("process");
 const { request } = require("http");
 
-const fs = require("fs");
-
 app.post("/certificado", async (req, res) => {
 
     var data = {
@@ -37,9 +35,7 @@ app.post("/certificado", async (req, res) => {
             const page = await browser.newPage();
 
             await page.setContent(html);
-            //await page.pdf({path: 'certificado.pdf', format: 'A4'});
-
-            await fs.writeFileSync("certificado.pdf", page.pdf({path: 'certificado.pdf', format: 'A4'}));
+            await page.pdf({path: '/app/certificado.pdf', format: 'A4'});
 
             await browser.close();
         })();
