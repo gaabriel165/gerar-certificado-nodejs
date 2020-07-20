@@ -35,8 +35,9 @@ app.post("/certificado", async (req, res) => {
             const page = await browser.newPage();
 
             await page.setContent(html);
-            await page.pdf({path: '/home/gabriel/Downloads/certificado.pdf', format: 'A4'});
-        
+            await page.pdf({path: 'certificado.pdf', format: 'A4'});
+            await page._client.send('Page.setDownloadBehavior', {behavior: 'allow', downloadPath: '/home/me/stuff'});
+
             await browser.close();
         })();
     });
