@@ -39,8 +39,9 @@ app.post("/certificado", async (req, res) => {
             const page = await browser.newPage();
 
             await page.setContent(html);
-            await page.pdf({path: 'certificado.pdf', format: 'A4'});
+            const pdf = await page.pdf({path: 'certificado.pdf', format: 'A4'});
 
+            res.send(pdf);
             await browser.close();
         })();
     });
