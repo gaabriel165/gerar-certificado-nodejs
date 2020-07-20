@@ -15,10 +15,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Config puppeteer
 const puppeteer = require('puppeteer');
 
-app.get("/", (req, res) => {
-    res.send("Ola");
-});
-
 app.post("/certificado", async (req, res) => {
 
     var data = {
@@ -34,6 +30,7 @@ app.post("/certificado", async (req, res) => {
 
         (async () => {
             const browser = await puppeteer.launch({
+                headless: true,
                 args: [
                     '--no-sandbox',
                     '--disable-setuid-sandbox',
