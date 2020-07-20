@@ -14,8 +14,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //Config puppeteer
 const puppeteer = require('puppeteer');
-const { abort } = require("process");
-const { request } = require("http");
+
+app.get("/", (req, res) => {
+    res.send("Ola");
+});
 
 app.post("/certificado", async (req, res) => {
 
@@ -31,11 +33,16 @@ app.post("/certificado", async (req, res) => {
         var html = template(data);
 
         (async () => {
-            const browser = await puppeteer.launch();
+            const browser = await puppeteer.launch({
+                args: [
+                    '--no-sandbox',
+                    '--disable-setuid-sandbox',
+                ],
+            });
             const page = await browser.newPage();
 
             await page.setContent(html);
-            await page.pdf({path: '/app/certificado.pdf', format: 'A4'});
+            await page.pdf({path: 'certificado.pdf', format: 'A4'});
 
             await browser.close();
         })();
