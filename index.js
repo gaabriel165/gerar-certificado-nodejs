@@ -42,6 +42,10 @@ app.post("/certificado", [
         data: dataAtual
     }
 
+    function retornaPdf(resp){
+        res.sendFile(resp);
+    }
+
     axios.get(req.body.template).then((res) => {
 
         var template = handlebars.compile(res.data);
@@ -61,9 +65,9 @@ app.post("/certificado", [
             const pdf = await page.pdf({path: 'certificado.pdf', format: 'A4'});
 
             await browser.close();
+            retornaPdf(__dirname + "/certificado.pdf");
         })();
     });
-    res.end();
 });
 
 const PORT = process.env.PORT || 3000;
