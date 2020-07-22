@@ -16,7 +16,7 @@ Para a realização deste serviço foi utilizado alguns recursos como:
 
 4. Heroku para fazer o deploy do serviço em si
 
-Além do que ja foi citado foram utilizados alguns pacotes do node com funcionalidades específicas como:
+## Pacotes do node utilizados
 
 * Express: Utilizado para criar rotas
 
@@ -43,3 +43,7 @@ Após isso, no postman você terá que fazer uma requisição post passando os d
 ![Alt text](/imagens/postman.png?raw=true "Imagem do postman")
 
 A resposta da requisição pode ser baixada clicando na opção Save Response que o postman disponibiliza.
+
+Após isso você já poderá abrir o seu pdf gerado :)
+
+![Alt text](/imagens/pdf-gerado.png?raw=true "Imagem do postman")
