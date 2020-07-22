@@ -20,7 +20,21 @@ var moment = require("moment");
 moment.locale("pt-br");
 const dataAtual = moment().format("LL");
 
-app.post("/certificado", async (req, res) => {
+//Validar erros
+const { body, validationResult } = require('express-validator');
+
+app.post("/certificado", [
+
+    body("template").isLength({min: 10}).withMessage("A url do template precisa conter pelo menos 10 caracteres!"),
+    body("nome").isLength({min: 4}).withMessage("O nome deve conter pelo menos 4 caracteres!"),
+    body("curso").isLength({min: 4}).withMessage("O curso deve conter pelo menos 4 caracteres!")
+] ,async (req, res) => {
+
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()){
+        return res.status(400).json({ errors: errors.array() });
+    }
 
     var data = {
         nome: req.body.nome,
