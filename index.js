@@ -15,12 +15,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Config puppeteer
 const puppeteer = require('puppeteer');
 
+//Config data
+var moment = require("moment");
+moment.locale("pt-br");
+const dataAtual = moment().format("LL");
+
 app.post("/certificado", async (req, res) => {
 
     var data = {
         nome: req.body.nome,
         curso: req.body.curso,
-        data: req.body.data
+        data: dataAtual
     }
 
     axios.get(req.body.template).then((res) => {
@@ -41,7 +46,6 @@ app.post("/certificado", async (req, res) => {
             await page.setContent(html);
             const pdf = await page.pdf({path: 'certificado.pdf', format: 'A4'});
 
-            res.send(pdf);
             await browser.close();
         })();
     });
